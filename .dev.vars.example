@@ -1,0 +1,7 @@
+# ローカル開発用。値を入れて .dev.vars にコピーする。この example は空のままコミットする。
+# Slack Incoming Webhook（#build-aiken-oyatsu-lp）
+SLACK_WEBHOOK_AIKEN_OYATSU_LP=
+
+# ユーザー向け API トークン。Workers Builds Configuration: Read、Workers Scripts: Read。
+# 成功時の workers.dev URL と、失敗時のビルドログ取得に使う。
+CLOUDFLARE_API_TOKEN=
