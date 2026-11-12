@@ -1,0 +1,35 @@
+{
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"name": "cf-build-notify",
+	"main": "src/index.ts",
+	"compatibility_date": "2026-11-12",
+	"compatibility_flags": ["nodejs_compat"],
+	"upload_source_maps": true,
+	"observability": {
+		"enabled": true,
+		"logs": {
+			"enabled": true,
+			"head_sampling_rate": 1
+		},
+		"traces": {
+			"enabled": true,
+			"head_sampling_rate": 1
+		}
+	},
+	// 既存の Queue。この Worker をその consumer にする。Queue 自体は作らない。
+	"queues": {
+		"consumers": [
+			{
+				"queue": "builds-event-subscriptions",
+				"max_batch_size": 10,
+				"max_batch_timeout": 5,
+				"max_retries": 3
+			}
+		]
+	},
+	// 値は書かない。wrangler secret put / ダッシュボードの Secrets で登録する。
+	// CLOUDFLARE_API_TOKEN は、成功時の workers.dev URL と失敗時のビルドログ取得に使う。
+	"secrets": {
+		"required": ["SLACK_WEBHOOK_AIKEN_OYATSU_LP", "CLOUDFLARE_API_TOKEN"]
+	}
+}
